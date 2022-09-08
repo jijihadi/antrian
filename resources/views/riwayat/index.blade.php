@@ -60,7 +60,7 @@
                                                 <td>{!! $s !!}</td>
                                                 <td>{{ $i->created_at }}</td>
                                                 <td>
-                                                    @if ($i->status_antrian != 1)
+                                                    @if ($i->status_antrian == 1)
                                                     {{-- @if ($i->status_antrian == 1) --}}
                                                         <a href="{{url('/cetak_antrian')."/".$i->nomor_antrian}}" target="_blank">
                                                             <button class="btn btn-success btn-sm">

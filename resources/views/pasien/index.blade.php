@@ -41,7 +41,7 @@
                                             <th>
                                                 Waktu Pendaftaran
                                             </th>
-                                            <th  class="text-center">
+                                            <th class="text-center">
                                                 #
                                             </th>
                                         </thead>
@@ -85,12 +85,12 @@
                                 <h4 class="card-title ">Verifikasi Data Pasien</h4>
                                 <p class="card-category">Konfirmasi Data Pasien Untuk mendapatkan Antrian </p>
 
-                                    <div class="col-md-12">
-                                        <div class="form-inline" style="float:right;">
-                                            <input type="date" id="tanggal_antrian" class="form-control ml-auto"
-                                                name="tanggal_antrian" style="color: #f4f4f4" />
-                                        </div>
+                                <div class="col-md-12">
+                                    <div class="form-inline" style="float:right;">
+                                        <input type="date" id="tanggal_antrian" class="form-control ml-auto"
+                                            name="tanggal_antrian" style="color: #f4f4f4" />
                                     </div>
+                                </div>
 
                             </div>
                             <div class="card-body">
@@ -98,7 +98,7 @@
                                     <table class="table">
                                         <thead class=" text-primary">
                                             <th>
-                                                ID
+                                                No
                                             </th>
                                             <th>
                                                 Nama Pasien
@@ -116,14 +116,14 @@
                                             <th>
                                                 Tanggal Terdaftar
                                             </th>
-                                            <th  class="text-center">
+                                            <th class="text-center">
                                                 Action
                                             </th>
                                         </thead>
                                         <tbody class="isi_table_pasien">
                                             @foreach ($antrian as $i)
                                                 <tr>
-                                                    <td>{{ $i->id_antrian }}</td>
+                                                    <td>{{ $loop->iteration }}</td>
                                                     <td>{{ get_nama_pasien($i->id_pasien) }}</td>
                                                     <td>{{ $i->nomor_antrian }}</td>
                                                     <td>{{ get_nama_poli($i->id_poli) }}</td>
@@ -160,7 +160,7 @@
                             <table class="table">
                                 <thead class=" text-primary">
                                     <th>
-                                        ID
+                                        No
                                     </th>
                                     <th>
                                         Nama Pasien
@@ -178,6 +178,9 @@
                                     <th>
                                         Tanggal Terdaftar
                                     </th>
+                                    <th>
+                                        #
+                                    </th>
                                     {{-- <th  class="text-center">
                 Action
               </th> --}}
@@ -187,7 +190,7 @@
                                     @if (!empty($mypasien))
                                         @foreach ($mypasien as $i)
                                             <tr>
-                                                <td>{{ $i->id_antrian }}</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ get_nama_pasien($i->id_pasien) }}</td>
                                                 <td>{{ $i->nomor_antrian }}</td>
                                                 <td>{{ get_nama_poli($i->id_poli) }}</td>
@@ -201,6 +204,18 @@
                                                 </td>
                                                 <td>
                                                     {{ $i->created_at }}
+                                                </td>
+                                                <td>
+                                                    @if ($i->status_antrian == 1)
+                                                        {{-- @if ($i->status_antrian == 1) --}}
+                                                        <a href="{{ url('/cetak_antrian') . '/' . $i->nomor_antrian }}"
+                                                            target="_blank">
+                                                            <button class="btn btn-success btn-sm">
+                                                                Cetak
+                                                                <span class="material-icons md-18">print</span>
+                                                            </button>
+                                                        </a>
+                                                    @endif
                                                 </td>
                                                 {{-- <td class="td-action text-center">
                     <a href="{{ route('pasien.verifikasi',$i->id_antrian) }}"><span class="material-icons text-warning">edit</span></a>
@@ -217,25 +232,13 @@
                                             </td>
                                         </tr>
                                     @endif
-
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
                 @endif
-
-
             </div>
-
-
-
-
         </div>
     </div>
-
-
-
     </div>
 @endsection

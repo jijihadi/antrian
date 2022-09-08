@@ -18,3 +18,9 @@
 -   gunakan bahasa indonesia disetiap label aplikasi //
 -   tampilan pada data pasien diperbaiki (dipilih tanggal) //
 -   data pendaftar harus dapat diliat oleh admin//
+
+ini last free revisi ya, udah lebih 3 kali revisi sejak serah terima harusnya udah aku charge tapi gapapa
+
+- Di room pasien (data pasien dibuat poli tujuan, tanggal daftar) dikasih tanda download juga disampingnya karena pasien yg mendownload nomer antrian//
+- button di nomor antrian dibuat on off aja karna button yg sekarang tidak familiar
+- di petugas bukan daftar pendaftar , tpi data pandaftar//

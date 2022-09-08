@@ -50,12 +50,22 @@
                                                     </td>
                                                     @if ($i->status_poli == 1)
                                                         <td>
-                                                            <span class="badge badge-success">Buka</span>
+                                                            <a href="{{url('/switch_poli')."/".$i->id_poli}}">
+                                                                <button class="btn btn-success btn-sm">
+                                                                    <span class="material-icons md-18">meeting_room</span>
+                                                                    Buka
+                                                                </button>
+                                                            </a>
                                                         </td>
                                                     @endif
                                                     @if ($i->status_poli == 0)
                                                         <td>
-                                                            <span class="badge badge-danger">Tutup</span>
+                                                            <a href="{{url('/switch_poli')."/".$i->id_poli}}">
+                                                                <button class="btn btn-danger btn-sm">
+                                                                    <span class="material-icons md-18">no_meeting_room</span>
+                                                                    Tutup
+                                                                </button>
+                                                            </a>
                                                         </td>
                                                     @endif
                                                     <td>

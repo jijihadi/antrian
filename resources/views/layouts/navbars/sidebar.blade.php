@@ -63,7 +63,7 @@
       <li class="nav-item{{ $activePage == 'list_antrian' ? ' active' : '' }}">
         <a class="nav-link" href="{{ url('list_antrian') }}">
           <i class="material-icons">content_paste</i>
-            <p>{{ __('Daftar Pendaftar') }}</p>
+            <p>{{ __('Data Pendaftar') }}</p>
         </a>
       </li>
       @endif

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Poli;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PoliController extends Controller
@@ -16,9 +16,9 @@ class PoliController extends Controller
     public function index()
     {
         $data['data'] = DB::table('poli')->get();
-        return view('poli.index',$data);
+        return view('poli.index', $data);
     }
- 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -37,22 +37,36 @@ class PoliController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([ 
+        $request->validate([
             'nama_poli' => [
-                'required', 'min:3'
+                'required', 'min:3',
             ],
-        
-    ]);
 
+        ]);
 
-    $prodi = new Poli();
-    $prodi->nama_poli = $request->nama_poli;
-    $prodi->status_poli = 1;
-    $prodi->save();
-     
+        $prodi = new Poli();
+        $prodi->nama_poli = $request->nama_poli;
+        $prodi->status_poli = 1;
+        $prodi->save();
 
-    return redirect()->route('poli.index')
-                    ->with('success','poli created successfully.');
+        return redirect()->route('poli.index')
+            ->with('success', 'poli created successfully.');
+    }
+
+    public function switch_poli($id)
+    {
+        $ck = DB::table('poli')
+            ->where('id_poli', $id)
+            ->get();
+
+        $data['status_poli'] = '1';
+        if ($ck[0]->status_poli == 1) {
+            $data['status_poli'] = '0';
+        }
+
+        DB::table('poli')->where('id_poli', $id)->update($data);
+
+        return redirect()->back();
     }
 
     /**
@@ -63,7 +77,7 @@ class PoliController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -74,8 +88,8 @@ class PoliController extends Controller
      */
     public function edit($id)
     {
-        $data['data'] = DB::table('poli')->where('id_poli',$id)->get();
-        return view('poli.edit',$data);
+        $data['data'] = DB::table('poli')->where('id_poli', $id)->get();
+        return view('poli.edit', $data);
     }
 
     /**
@@ -88,11 +102,11 @@ class PoliController extends Controller
     public function update(Request $request, $id)
     {
         DB::table('poli')
-        ->where('id_poli', $id)
-        ->update(['nama_poli' => $request->nama_poli,'status_poli'=> $request->status_poli]);
+            ->where('id_poli', $id)
+            ->update(['nama_poli' => $request->nama_poli, 'status_poli' => $request->status_poli]);
 
         return redirect()->route('poli.index')
-        ->with('success','Pengajuan Pendaftaran sudah berhasil di update');
+            ->with('success', 'Pengajuan Pendaftaran sudah berhasil di update');
     }
 
     /**

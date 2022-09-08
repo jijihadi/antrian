@@ -69,6 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('finish_antrian','App\Http\Controllers\AntrianController@finish');
 	Route::resource('riwayat', 'App\Http\Controllers\RiwayatController');
 	Route::get('report_poli','App\Http\Controllers\AntrianController@report_poli');
+	Route::get('switch_poli/{id}','App\Http\Controllers\PoliController@switch_poli');
 	Route::post('tambah_antrian','App\Http\Controllers\AntrianController@daftar_antrian');
 	Route::get('cetak_antrian/{id}','App\Http\Controllers\AntrianController@print');
 	Route::post('pasien-ajax','App\Http\Controllers\PetugasController@verifikasi_ajax');
