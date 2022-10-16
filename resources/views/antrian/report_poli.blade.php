@@ -1,6 +1,17 @@
 @extends('layouts.app', ['activePage' => 'report_poli', 'titlePage' => __('Laporan Pendaftaran tiap Poli')])
 @csrf
 @section('content')
+    <style>
+        .form-control {
+            padding: 4px;
+            color: white;
+        }
+
+        .form-control,
+        option {
+            padding: 14px;
+        }
+    </style>
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -11,9 +22,17 @@
                             {{-- <p class="card-category">Mengatur Data Poli dalam bentuk table</p> --}}
                             <div class="col-md-12">
                                 <div class="form-inline" style="float:right;">
+                                    <label class="text-white">Poli:</label> &nbsp;
+                                    <select class="form-control" id="filter_poli">
+                                        <option value="0">Semua</option>
+                                        @foreach (get_poli() as $i)
+                                            <option value="{{ $i->id_poli }}" {{$_GET['poli']==$i->id_poli?"selected":""}}>{{ $i->nama_poli }}</option>
+                                        @endforeach
+                                    </select>
                                     <label class="text-white">Tanggal:</label> &nbsp;
                                     <input type="date" id="filter_riwayat" class="form-control ml-auto"
-                                        name="filter_riwayat" style="color: #f4f4f4" />
+                                        name="filter_riwayat" style="color: #f4f4f4"
+                                        value="{{ !empty($_GET['time']) ? $_GET['time'] : date('Y-m-d') }}" />
                                 </div>
                             </div>
                         </div>
@@ -62,8 +81,10 @@
                                                         <?php $i++; ?>
                                                     @endforeach
                                                     <tr>
-                                                        <th colspan="2" class="text-success">Pasien Hadir: {{ $hadir }}</th>
-                                                        <th colspan="2" class="text-danger">Pasien Tidak Hadir: {{ $tidak }}</th>
+                                                        <th colspan="2" class="text-success">Pasien Hadir:
+                                                            {{ $hadir }}</th>
+                                                        <th colspan="2" class="text-danger">Pasien Tidak Hadir:
+                                                            {{ $tidak }}</th>
                                                     </tr>
                                                 @else
                                                     <tr>
@@ -84,8 +105,20 @@
         </div>
     </div>
     </div>
-
-
-
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $("#filter_riwayat").change(function() {
+            var date = $("#filter_riwayat").val();
+            var poli = $("#filter_poli").val();
+            location.href = '/report_poli?time=' + date + '&poli=' + poli;
+        });
+        $("#filter_poli").change(function() {
+            var date = $("#filter_riwayat").val();
+            var poli = $("#filter_poli").val();
+            location.href = '/report_poli?time=' + date + '&poli=' + poli;
+        });
+    </script>
 @endsection

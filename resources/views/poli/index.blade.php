@@ -11,13 +11,10 @@
                             <div class="card-header card-header-warning">
                                 <h4 class="card-title ">Data Poli</h4>
                                 <p class="card-category">Mengatur Data Poli dalam bentuk table</p>
-                                <p class="text-right"><a href="{{ route('poli.create') }}"
-                                        class="btn btn-md btn-info"><span class="material-icons mr-2">add</span>Tambah
+                                <p class="text-right"><a href="{{ route('poli.create') }}" class="btn btn-md btn-info"><span
+                                            class="material-icons mr-2">add</span>Tambah
                                         Poli</a></p>
-                            </div>  
-
-                        
-
+                            </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table">
@@ -34,7 +31,7 @@
                                             <th>
                                                 Tanggal Berdiri
                                             </th>
-                                            <th  class="text-center">
+                                            <th class="text-center">
                                                 #
                                             </th>
                                         </thead>
@@ -50,7 +47,7 @@
                                                     </td>
                                                     @if ($i->status_poli == 1)
                                                         <td>
-                                                            <a href="{{url('/switch_poli')."/".$i->id_poli}}">
+                                                            <a href="{{ url('/switch_poli') . '/' . $i->id_poli }}">
                                                                 <button class="btn btn-success btn-sm">
                                                                     <span class="material-icons md-18">meeting_room</span>
                                                                     Buka
@@ -60,9 +57,10 @@
                                                     @endif
                                                     @if ($i->status_poli == 0)
                                                         <td>
-                                                            <a href="{{url('/switch_poli')."/".$i->id_poli}}">
+                                                            <a href="{{ url('/switch_poli') . '/' . $i->id_poli }}">
                                                                 <button class="btn btn-danger btn-sm">
-                                                                    <span class="material-icons md-18">no_meeting_room</span>
+                                                                    <span
+                                                                        class="material-icons md-18">no_meeting_room</span>
                                                                     Tutup
                                                                 </button>
                                                             </a>
@@ -102,7 +100,7 @@
                             </div>
                             <div class="card-body">
 
-            
+
 
                                 <div class="row">
                                     @foreach ($data as $item)
@@ -143,13 +141,8 @@
                     </div>
                 </div>
             @endif
-
-
         </div>
     </div>
     </div>
-
-
-
     </div>
 @endsection

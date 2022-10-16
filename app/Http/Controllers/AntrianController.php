@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\AntrianNotifMail;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,9 +42,15 @@ class AntrianController extends Controller
     public function report_poli()
     {
 
-        $data['poli'] = DB::table('poli')
-            ->get();
+        DB::enableQueryLog();
 
+        $q = DB::table('poli');
+        if (!empty($_GET['poli'])) {
+            if ($_GET['poli'] != 0) {
+                $q = $q->where('id_poli', $_GET['poli']);
+            }
+        }
+        $data['poli'] = $q->get();
         // dd( $data[ 'antrian' ] );
         return view('antrian.report_poli', $data);
     }
@@ -67,8 +72,8 @@ class AntrianController extends Controller
         $pdf->render();
 // Output the generated PDF to Browser
         $pdf->stream();
-        return $pdf->stream($data['antrian'][0]->nomor_antrian."-".date('dMY').'.pdf', array("Attachment" => false));
-        return $pdf->download($data['antrian'][0]->nomor_antrian.'.pdf');
+        return $pdf->stream($data['antrian'][0]->nomor_antrian . "-" . date('dMY') . '.pdf', array("Attachment" => false));
+        return $pdf->download($data['antrian'][0]->nomor_antrian . '.pdf');
 
     }
 
@@ -182,7 +187,7 @@ class AntrianController extends Controller
         //     DB::table( 'nomor_antrian' )->insert( $data );
         // }
 
-        Mail::to(auth()->user()->email)->send(new AntrianNotifMail());
+        // Mail::to(auth()->user()->email)->send(new AntrianNotifMail());
 
         if (Mail::failures()) {
             dd(Mail::failures());

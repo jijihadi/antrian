@@ -151,6 +151,12 @@ function get_antrian_sekarang($id_poli)
     // return get_nomor_antrian($id_antrian);
 }
 
+function get_poli()
+{
+    $data = DB::table('poli')->get();
+
+    return $data;
+}
 function get_poli_antrian($id_poli)
 {
     date_default_timezone_set('Asia/Jakarta');
@@ -160,6 +166,14 @@ function get_poli_antrian($id_poli)
         ->where('id_poli', $id_poli)
         ->where('created_at', 'like', '%' . $tanggal . '%')
         ->get();
+
+    if (!empty($_GET['time'])) {
+        $data = DB::table('nomor_antrian')
+            ->where('id_poli', $id_poli)
+            ->where('created_at', 'like', '%' . $_GET['time'] . '%')
+            ->get();
+    }
+
     // $id_antrian = $data[0]->id_antrian;
     if (empty($data[0]->id_antrian)) {
         return 0;
@@ -181,6 +195,13 @@ function get_kehadiran_antrian($id_poli, $status)
         ->where('status_antrian', $status)
         ->get();
     // $id_antrian = $data[0]->id_antrian;
+    if (!empty($_GET['time'])) {
+        $data = DB::table('nomor_antrian')
+            ->where('id_poli', $id_poli)
+            ->where('created_at', 'like', '%' . $_GET['time'] . '%')
+            ->where('status_antrian', $status)
+            ->get();
+    }
     if (empty($data[0]->id_antrian)) {
         return 0;
     } else {
@@ -217,7 +238,7 @@ function bulan_indo($date)
 
 function rand_color()
 {
-    $background_colors = array('#6E85B7', '#898AA6', '#73A9AD', '#D96098', '#898AA6', '#CDC2AE', '#DB6400', '#3AB4F2', '#874356', '#9A86A4', '#7F8487', '#85586F', '#78938A', '#BE8C63', '#D885A3', '#1572A1', '#A267AC', '#590696', '#7C99AC', '#94B3FD', '#9D9D9D', '#7F7C82', '#F6AE99', '#B5CDA3', '#231955', '#76BA99', '#6E7582', '#BFB051', '#D8AC9C', '#676FA3', '#533535', '#1C7947', '#D57E7E', '#00C1D4', '#C15050', '#726A95');
+    $background_colors = ['#6E85B7', '#898AA6', '#73A9AD', '#D96098', '#898AA6', '#CDC2AE', '#DB6400', '#3AB4F2', '#874356', '#9A86A4', '#7F8487', '#85586F', '#78938A', '#BE8C63', '#D885A3', '#1572A1', '#A267AC', '#590696', '#7C99AC', '#94B3FD', '#9D9D9D', '#7F7C82', '#F6AE99', '#B5CDA3', '#231955', '#76BA99', '#6E7582', '#BFB051', '#D8AC9C', '#676FA3', '#533535', '#1C7947', '#D57E7E', '#00C1D4', '#C15050', '#726A95'];
 
     $rand_background = $background_colors[array_rand($background_colors)];
 
